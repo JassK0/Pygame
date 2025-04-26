@@ -1,0 +1,196 @@
+Lesson Plan: Make a "Catch the Point" Game with Pygame
+
+--------------------------------------------------------
+
+Goal:
+- Move a player
+- Catch a target ("point")
+- Score points
+- Win the game!
+
+--------------------------------------------------------
+
+Part 1: Set Up Pygame
+- Import pygame, sys, random
+- Initialize Pygame
+- Create the game window
+
+Note: 
+Every game must start by setting up Pygame and creating a window.
+
+Code:
+    import pygame
+    import sys
+    import random
+
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption("My First Pygame Window!")
+
+Hint:
+- `pygame.init()` gets everything ready.
+- `set_mode(width, height)` decides how big the game window is.
+
+--------------------------------------------------------
+
+Part 2: Create the Player and Target
+- Make a red rectangle (player)
+- Make a green rectangle (point to catch)
+- Set colors and speed
+
+Note:
+The player and point are just colored rectangles at first.
+
+Code:
+    player = pygame.Rect(300, 200, 50, 50)
+    point = pygame.Rect(100, 50, 50, 50)
+    player_speed = 1
+
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    GREEN = (0, 199, 100)
+
+Hint:
+- Rectangles are easy because we can move and check for collisions using simple numbers.
+
+--------------------------------------------------------
+
+Part 3: Add the Score System
+- Set score to 0
+- Create a font to display score
+
+Note:
+Keeping track of the score makes it feel like a real game!
+
+Code:
+    score = 0
+    font = pygame.font.SysFont(None, 36)
+
+Hint:
+- `SysFont(None, size)` picks a simple font if you don't care which one.
+
+--------------------------------------------------------
+
+Part 4: Handle Player Movement
+- Get key presses (left, right, up, down)
+- Move the player based on keys
+
+Note:
+We need to check keys every frame to move smoothly.
+
+Code:
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player.x -= player_speed
+    if keys[pygame.K_RIGHT]:
+        player.x += player_speed
+    if keys[pygame.K_UP]:
+        player.y -= player_speed
+    if keys[pygame.K_DOWN]:
+        player.y += player_speed
+
+Hint:
+- `key.get_pressed()` checks what keys are *currently* being held down.
+
+--------------------------------------------------------
+
+Part 5: Keep Player Inside the Screen
+- Stop the player from going outside the window
+
+Note:
+We don't want the player disappearing off the screen!
+
+Code:
+    if player.left < 0:
+        player.left = 0
+    if player.right > 800:
+        player.right = 800
+    if player.top < 0:
+        player.top = 0
+    if player.bottom > 600:
+        player.bottom = 600
+
+Hint:
+- Always check both sides — left/right, top/bottom.
+
+--------------------------------------------------------
+
+Part 6: Add Catching the Point
+- If player touches the point:
+    - Add 1 to score
+    - Move point to a random new spot
+
+Note:
+`colliderect` makes it easy to see if two rectangles touch.
+
+Code:
+    if player.colliderect(point):
+        score += 1
+        point.x = random.randint(0, 750)
+        point.y = random.randint(0, 550)
+
+Hint:
+- We stop at 750 and 550 because the point is 50px wide, and we don't want it to spawn off the screen!
+
+--------------------------------------------------------
+
+Part 7: Winning the Game
+- If score reaches 3:
+    - Change background color to green
+    - Show "YOU WIN!!"
+- Else:
+    - Keep playing normally
+
+Note:
+Changing background color is a simple way to show winning!
+
+Code:
+    if score >= 3:
+        screen.fill(GREEN)
+        win_text = font.render("YOU WIN!!", True, WHITE)
+        screen.blit(win_text, (300, 300))
+    else:
+        screen.fill(WHITE)
+        pygame.draw.rect(screen, RED, player)
+        pygame.draw.rect(screen, GREEN, point)
+        score_text = font.render(f"Score {score}", True, (0, 0, 0))
+        screen.blit(score_text, (0, 0))
+
+Hint:
+- Only show the "YOU WIN!!" screen once you have enough points.
+
+--------------------------------------------------------
+
+Part 8: Update the Screen
+- Always update the screen at the end of the loop
+
+Note:
+This draws everything new onto the window each frame.
+
+Code:
+    pygame.display.update()
+
+Hint:
+- If you forget this, your screen won't change!
+
+--------------------------------------------------------
+
+Full Loop Reminder:
+Every game loop usually looks like this:
+    1. Handle events (check quit button, etc.)
+    2. Move the player
+    3. Keep the player inside the screen
+    4. Check if player caught the point
+    5. Draw everything
+    6. Update the display
+
+Tip:
+- Always keep this order in your head!
+
+--------------------------------------------------------
+
+End of Lesson
+
+Good luck and have fun!
+
+--------------------------------------------------------
