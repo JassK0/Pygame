@@ -1,0 +1,100 @@
+First Pygame Project: Moving a Shape!
+
+Welcome to your very first Pygame project!
+In this project, you will create a Pygame window, draw a shape, and move it with your keyboard.
+
+--------------------------------------------------------
+
+What You'll Learn:
+- How to open a Pygame window
+- How to quit the game properly
+- How to draw shapes (like rectangles)
+- How to move a shape using arrow keys
+
+--------------------------------------------------------
+
+Setup Instructions:
+
+1. Install Pygame:
+   pip install pygame
+
+2. Create a new file:
+   first_game.py
+
+3. Copy and paste this starter code to open a window:
+
+    import pygame
+    import sys
+
+    # Initialize Pygame
+    pygame.init()
+
+    # Set up the screen
+    screen = pygame.display.set_mode((600, 400))
+    pygame.display.set_caption("My First Pygame Window!")
+
+    # Game loop
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.display.update()
+
+--------------------------------------------------------
+
+Now Let's Add a Moving Shape!
+
+After setting up the window, add this code **before** the game loop:
+
+    # Create a player rectangle
+    player = pygame.Rect(300, 200, 50, 50)
+    player_speed = 5
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+
+Then update your game loop like this:
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        # Handle key presses
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            player.x -= player_speed
+        if keys[pygame.K_RIGHT]:
+            player.x += player_speed
+        if keys[pygame.K_UP]:
+            player.y -= player_speed
+        if keys[pygame.K_DOWN]:
+            player.y += player_speed
+
+        # Draw everything
+        screen.fill(WHITE)
+        pygame.draw.rect(screen, RED, player)
+
+        pygame.display.update()
+
+--------------------------------------------------------
+
+How to Play:
+- Run the game:
+  python first_game.py
+- Use the arrow keys (← ↑ → ↓) to move the red rectangle.
+- Click the X button to close the window properly.
+
+--------------------------------------------------------
+
+Bonus Challenges:
+- Change the background color
+- Adjust the player's speed
+- Make the player a circle instead of a rectangle
+- Add borders so the player can't move off screen
+
+--------------------------------------------------------
+
+Good luck and have fun!
