@@ -1,0 +1,44 @@
+
+Quick Setup Guide: Virtual Environment + Pygame on Windows
+===========================================================
+
+Goal:
+-----
+Set up a Python virtual environment in your project folder and install pygame safely (no system-wide install).
+
+Steps:
+------
+
+1. Open Command Prompt (CMD) or PowerShell
+
+2. Navigate to your project folder:
+   Example:
+   cd Desktop\game
+
+3. Create the virtual environment:
+   python -m venv .venv
+
+   (This creates a .venv folder inside your project directory.)
+
+4. Activate the virtual environment:
+   .venv\Scripts\activate
+
+   (You should now see something like: (.venv) C:\Users\YourName\Desktop\game>)
+
+5. Install pygame:
+   pip install pygame
+
+6. Run your Python script:
+   python yourscript.py
+
+
+Optional (VS Code Setup):
+-------------------------
+
+1. Open your project folder in VS Code
+
+2. Press Ctrl + Shift + P → type: Python: Select Interpreter
+
+3. Choose the one that ends in: .venv\Scripts\python.exe
+
+You're now ready to build and run Python games with pygame in a clean environment!

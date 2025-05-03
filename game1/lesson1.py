@@ -19,6 +19,8 @@ GREEN = (0,199,100)
 score = 0
 font = pygame.font.SysFont(None, 36)
 
+coin_sound = pygame.mixer.Sound("coin.wav")
+
 
 
  # Game loop
@@ -53,12 +55,13 @@ while True:
     #if player touches point
     if player.colliderect(point):
         score += 1
+        coin_sound.play()
         #move point to random spot
         point.x = random.randint(0, 750)
         point.y = random.randint(0, 550)
 
     
-    if score >= 3:
+    if score >= 5:
         screen.fill(GREEN)
         win_text = font.render("YOU WIN!!", True, WHITE)
         screen.blit(win_text,(300,300))

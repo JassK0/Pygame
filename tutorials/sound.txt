@@ -1,0 +1,69 @@
+# Pygame Sound Tutorial
+
+This guide explains how to add sound effects and music in your Pygame projects.
+
+--------------------------
+1. Initialize Pygame Mixer
+--------------------------
+
+import pygame
+pygame.init()
+
+# This sets up everything, including sound support.
+
+--------------------------
+2. Load a Sound Effect
+--------------------------
+
+jump_sound = pygame.mixer.Sound("jump.wav")
+
+# Use .wav files for best compatibility.
+
+--------------------------
+3. Play the Sound
+--------------------------
+
+jump_sound.play()
+
+# You can call this when a player jumps, shoots, etc.
+
+--------------------------
+4. Load and Play Music
+--------------------------
+
+pygame.mixer.music.load("bg_music.mp3")
+pygame.mixer.music.play(-1)  # -1 means loop forever
+
+# Use this for background music.
+
+--------------------------
+5. Stop the Music
+--------------------------
+
+pygame.mixer.music.stop()
+
+# Stops the music immediately.
+
+--------------------------
+6. Example Code: Sound on Key Press
+--------------------------
+
+import pygame
+pygame.init()
+
+screen = pygame.display.set_mode((400, 300))
+pygame.display.set_caption("Sound Example")
+
+beep = pygame.mixer.Sound("beep.wav")
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            beep.play()
+
+pygame.quit()
+
+# Save your sound file in the same folder as your Python file.
