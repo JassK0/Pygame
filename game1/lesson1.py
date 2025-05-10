@@ -19,7 +19,7 @@ GREEN = (0,199,100)
 score = 0
 font = pygame.font.SysFont(None, 36)
 
-coin_sound = pygame.mixer.Sound("coin.wav")
+coin_sound = pygame.mixer.Sound("game1/coin.wav")
 
 
 
