@@ -1,0 +1,49 @@
+
+USE THIS SITE TO EASILY FIND GOOD PICTURES:
+https://www.flaticon.com/
+
+
+Adding Pictures (e.g., for Bombs):
+-----------------------------------------
+
+To display images like bombs in your Pygame game, follow these steps:
+
+a) Prepare your image:
+   - Save the image (e.g., bomb.png) inside a folder like `game2/`.
+
+b) Load the image using Pygame:
+   bomb_image = pygame.image.load("game2/bomb.png").convert_alpha()
+   bomb_image = pygame.transform.scale(bomb_image, (CELL_SIZE, CELL_SIZE))
+
+c) Display the image in your game loop at a specific rectangle:
+   screen.blit(bomb_image, bomb_rect)
+
+In your code, you correctly loop through bombs and render the image:
+   for b in bombs:
+       screen.blit(bomb_image, b)
+
+
+
+example:
+
+top sectionn of your code, where all other global variables are:
+
+bomb_image = pygame.image.load("game2/bomb.png").convert_alpha()
+bomb_image = pygame.transform.scale(bomb_image, (CELL_SIZE, CELL_SIZE))
+
+
+
+then add to the part where you draw everything else:
+
+    score_text = font.render(f"Score {score}",True,BLACK)
+    screen.blit(score_text,(0,0))
+    for segment in snake:
+        pygame.draw.rect(screen, GREEN, segment)
+    for p in points:
+        pygame.draw.rect(screen,RED,p)
+
+
+
+DRAW YOU BOMB LIKE THIS:
+    for b in bombs:
+        screen.blit(bomb_image,b)

@@ -2,7 +2,6 @@ import pygame
 import sys
 import random
 
-# Initialize Pygame
 pygame.init()
 
 # Set up the screen
@@ -11,14 +10,25 @@ CELL_SIZE = 30
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Simple Snake Game")
 
-# Colors
 WHITE = (255, 255, 255)
 GREEN = (0, 199, 100)
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 
+# Add this mapping at the top, after your constants
+OPPOSITE_DIRECTIONS = {
+    pygame.K_LEFT: pygame.K_RIGHT,
+    pygame.K_RIGHT: pygame.K_LEFT,
+    pygame.K_UP: pygame.K_DOWN,
+    pygame.K_DOWN: pygame.K_UP,
+}
+
 # Snake and point setup
-snake = [pygame.Rect(100, 100, CELL_SIZE, CELL_SIZE), pygame.Rect(100, 100, CELL_SIZE, CELL_SIZE), pygame.Rect(100, 100, CELL_SIZE, CELL_SIZE)]
+snake = [
+    pygame.Rect(100, 100, CELL_SIZE, CELL_SIZE), 
+    pygame.Rect(100, 100, CELL_SIZE, CELL_SIZE), 
+    pygame.Rect(100, 100, CELL_SIZE, CELL_SIZE)
+    ]
 direction = pygame.K_RIGHT
 points = [
     pygame.Rect(random.randint(0, WIDTH // CELL_SIZE - 1) * CELL_SIZE,
@@ -36,12 +46,18 @@ bombs = [
 ]
 eaten_amount = 0
 score = 0
-eaten_sound = pygame.mixer.Sound("game2/coin.wav")
-bomb_sound = pygame.mixer.Sound("game2/bomb.mp3")
-die_sound = pygame.mixer.Sound("game2/die.mp3")
+# Load sounds
+#make sure to use the correct path for your sounds
+# example: game2/sounds/coin.wav
+eaten_sound = pygame.mixer.Sound("game2/Lesson 2/sounds/coin.wav")
+bomb_sound = pygame.mixer.Sound("game2/Lesson 2/sounds/bomb.mp3")
+die_sound = pygame.mixer.Sound("game2/Lesson 2/sounds/die.mp3")
 
-bomb_image = pygame.image.load("game2/bomb.png").convert_alpha()
+bomb_image = pygame.image.load("game2/Lesson 2/images/bomb.png").convert_alpha()
 bomb_image = pygame.transform.scale(bomb_image, (CELL_SIZE, CELL_SIZE))
+
+food_image = pygame.image.load("game2/Lesson 2/images/food.png").convert_alpha()
+food_image = pygame.transform.scale(food_image, (CELL_SIZE, CELL_SIZE))
 
 
 
@@ -62,21 +78,28 @@ def move_snake():
         head.y += CELL_SIZE
     return head
 
-# Game loop
+
+
+
+
+# The main game loop (should be in all games)
 while True:
     screen.fill(WHITE)
 
-    # Handle quit
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    # Handle input
     keys = pygame.key.get_pressed()
+    # Store the current direction before checking for new input
+    current_direction = direction
     for key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
-        if keys[key]:  
-            direction = key
+        if keys[key]:
+            # Only allow direction change if not opposite
+            if key != OPPOSITE_DIRECTIONS.get(current_direction):
+                direction = key
+            
     def game_over():
         die_sound.play()
         game_over_text = font.render("Game Over!", True, RED)
@@ -92,8 +115,8 @@ while True:
     # Check collision with walls or self
     if (new_head.left < 0 or new_head.right > WIDTH or
         new_head.top < 0 or new_head.bottom > HEIGHT or
-        new_head.collidelist(snake) != -1): # self collide check (-1 is checking the things
-        #behind the head of the list (not possibele to collide with the one right behinf it)) 
+        new_head.collidelist(snake) != -1): # Check for self-collision: collidelist returns -1 if no collision.
+        # If it returns any index (i.e., not -1), the snake collided with itself and the game ends
         game_over()
 
 
@@ -134,7 +157,7 @@ while True:
     for segment in snake:
         pygame.draw.rect(screen, GREEN, segment)
     for p in points:
-        pygame.draw.rect(screen,RED,p)
+        screen.blit(food_image,p)
     for b in bombs:
         screen.blit(bomb_image,b)
 

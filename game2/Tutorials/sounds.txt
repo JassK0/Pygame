@@ -1,0 +1,40 @@
+
+USE THIS SITE TO EASILY FIND AND DOWNLOAD SOUNDS:
+https://pixabay.com/sound-effects/search/game/
+
+
+Adding Sounds (e.g., for Eating or Collisions):
+-------------------------------------------------------
+
+a) Prepare your sound files (e.g., coin.wav, bomb.mp3, die.mp3) and place them in the same `game2/` folder.
+
+b) Load the sounds using `pygame.mixer.Sound()`:
+   eaten_sound = pygame.mixer.Sound("game2/coin.wav")
+   bomb_sound = pygame.mixer.Sound("game2/bomb.mp3")
+   die_sound = pygame.mixer.Sound("game2/die.mp3")
+
+c) Play a sound when something happens:
+   eaten_sound.play()  # when a point is eaten
+   bomb_sound.play()   # when a bomb is hit
+   die_sound.play()    # when game over
+
+
+example:
+
+
+beep = pygame.mixer.Sound("beep.wav")
+the variable beep should be in the top section of the code, where all
+other variables are stored.
+
+Then you can use it inside you game loop:
+
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            beep.play()
+
+pygame.quit()
