@@ -66,6 +66,14 @@ def move_snake():
     elif direction == pygame.K_DOWN:
         head.y += CELL_SIZE
     return head
+def game_over():
+    die_sound.play()
+    game_over_text = font.render("Game Over!", True, RED)
+    screen.blit(game_over_text, (WIDTH // 2 - 80, HEIGHT // 2))
+    pygame.display.update()
+    pygame.time.wait(2000)
+    pygame.quit()
+    sys.exit()
 
 
 
@@ -85,14 +93,6 @@ while True:
         if keys[key]:  
             direction = key
             
-    def game_over():
-        die_sound.play()
-        game_over_text = font.render("Game Over!", True, RED)
-        screen.blit(game_over_text, (WIDTH // 2 - 80, HEIGHT // 2))
-        pygame.display.update()
-        pygame.time.wait(2000)
-        pygame.quit()
-        sys.exit()
 
     # Move snake
     new_head = move_snake()
